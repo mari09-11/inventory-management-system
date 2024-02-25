@@ -1,0 +1,14 @@
+<h2>Confirmation de suppression</h2>
+<p>
+  Vous êtes sur le point de supprimer l'achat 
+</p>
+<p>Êtes-vous sûr de vouloir continuer ?</p>
+
+<form method="post" action="">
+  {% csrf_token %}
+  <input type="submit" value="Confirmer la suppression" />
+</form>
+{{form.media}}
+<a href="{% url 'liste_VentematierePremieres' %}">
+  <button>Annuler</button>
+</a>

@@ -1,0 +1,21 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+<form method="POST" action="{% url 'paiement_credit' centre_id=centre_id %}">
+  {% csrf_token %}
+  <label for="search">Entrez le nom du client:</label>
+  <input type="text" name="search" id="search" value="{{cl.nomCl}}"/>
+  <button type="submit" class="btn btn-info">Rechercher</button>
+  <br />
+
+  {% if cl %}
+    <p>Credit ={{cl.credit}}</p>
+  {% endif %}
+
+  {{form.as_p}}
+  <input type="submit" class="btn btn-success" value="Ajouter" />
+</form>
+<p>{{message}}</p>
+
+<a href="{% url 'activites_centre' centre_id=centre_id %}">
+  <button class="btn btn-secondary">retourner</button>
+</a>

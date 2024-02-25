@@ -1,0 +1,14 @@
+#Byte-compiled / optimized / DLL files
+# __pycache__/
+# *.pyc
+# *.pyo
+# *.pyd
+
+#Migrations
+# migrations/
+
+#Database
+# db.sqlite3
+
+#Static files
+# static/

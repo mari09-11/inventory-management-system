@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Achat Matiere Premiere</title>
+    {{ form.media.css }}
+    <style> 
+       .form-sp { 
+           margin-bottom : 8px;
+       } 
+       select {width: 10% }
+       body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+    button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    input[type="submit"] {
+      margin: 5px;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Acheter Matiere Premiere :</h3>
+    <div>
+    <form method="POST">
+      {% csrf_token %}  
+      <div class="form-sp"> 
+        <label>Date Achat </label> 
+        {{ form.dateAchat }} 
+    </div>
+    <div class="form-sp"> 
+        <label>Fournisseur </label> 
+        {{ form.fournisseur }} 
+    </div>
+    <div class="form-sp"> 
+        <label>Matiere Premiere</label> 
+        {{ form.matieresAchetes }} 
+    </div> 
+    <div class="form-sp"> 
+        <label>Quantite achetée</label> 
+        {{ form.QteAchat }} 
+    </div> 
+    <div class="form-sp"> 
+        <label>prix Achat</label> 
+        {{ form.prixAchat }} 
+    </div>
+    <div class="form-sp"> 
+        <label>Montant Total</label> 
+        {{ form.montantTotal }} 
+    </div>	 
+    <div class="form-sp"> 
+        <label>Montant versé</label> 
+        {{ form.montantverse }} 
+    </div>
+    <div class="form-sp"> 
+        <label>Montant Restant</label> 
+        {{ form.montantRestant }} 
+    </div>	
+      <input type="submit" value="Confirmer Achat" />
+    </form>
+    </div> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+
+    </script>
+      {{ form.media.js }}
+    <p>{{message}}</p>
+    
+    </script>
+    <div style="position: fixed; top: 85px; left: 18.5%; text-align: center; padding: 8px;">
+      <a href="{% url 'addF' %}" style="text-decoration: none;">
+          <button style="padding: 4px 10px;">Ajouter Fournisseur</button>
+      </a>
+  </div>
+    <a href="{% url 'liste_matierePremieres' %}">
+      <button>Liste Matière Premières</button>
+    </a>
+    <a href="{% url 'liste_AchatmatierePremieres' %}">
+      <button>Journal achat Matière Premières</button>
+    </a> 
+  </br>
+</br>
+    <a href="magasin">
+      <button>retourner</button>
+    </a>
+    <script src="" async defer></script>
+  </body>
+</html>
+

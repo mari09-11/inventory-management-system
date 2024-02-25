@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+    button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    a.edit-link {
+      display: inline-block;
+      padding: 8px 16px;
+      text-decoration: none;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+  }
+  
+  a.edit-link:hover {
+      background-color: #0056b3;
+  }
+  a.delete-link {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+  a.delete-link:hover {
+    background-color: #c82333;
+}
+    </style>
+    <title>Fournisseurs</title>
+  </head>
+  <body>
+    <h1>Liste des Fournisseurs</h1>
+
+    <form method="GET">
+      <label for="search">Entrez le nom du fournisseur:</label>
+      <input type="text" name="recherche" id="search" />
+      <button type="submit" class="btn btn-info">rechercher</button>
+    </form>
+    <br />
+
+    {% if fournisseurs %}
+    <table border="1px">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Adresse</th>
+          <th>Téléphone</th>
+          <th>Solde</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      {% for f in fournisseurs %}
+      <tbody >
+        <tr>
+          <td class="table-active">{{f.id}}</td>
+          <td class="table-active">{{f.nomF}}</td>
+          <td class="table-active">{{f.prenomF}}</td>
+          <td class="table-active">{{f.adresseF}}</td>
+          <td class="table-active">{{f.telephoneF}}</td>
+          <td class="table-active">{{f.solde}}</td>
+          <td class="table-active">
+            <a href="{% url 'editF' f.id %}" class="edit-link">Modifier</a>
+          </td>
+          <td class="table-active">
+            <a href="{% url 'deleteF' f.id %}" class="delete-link">Supprimer</a>
+          </td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>Aucun Fournisseur a afficher</p>
+    {% endif %}
+
+    <a href="fournisseur/ajouter">
+      <button >Ajouter un Fournisseur</button>
+    </a>
+    <br />
+    <br />
+
+    <a href="magasin">
+      <button >retourner</button>
+    </a>
+  </body>
+</html>

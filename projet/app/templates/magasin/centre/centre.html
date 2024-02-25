@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+  }
+  h1 {
+      margin-bottom: 20px;
+  }
+  form {
+      margin-bottom: 20px;
+  }
+  label {
+      margin-right: 10px;
+  }
+  button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+  }
+  button:hover {
+      background-color: #0056b3;
+  }
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+  }
+  th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+  th {
+      background-color: #f2f2f2;
+  }
+</style>
+    <title>Centres</title>
+  </head>
+  <body>
+    <h1>Liste des Centres</h1>
+
+    <form method="GET">
+      <label for="search">Entrez le nom du centre:</label>
+      <input type="text" name="recherche" id="search" />
+      <button type="submit" class="btn btn-info">rechercher</button>
+    </form>
+    <br />
+
+    {% if centres %}
+      <table border="1px" class="table table-dark table-hover table-bordered">
+        <thead>
+          <tr>
+            <th ></th>
+            <th >Nom</th>
+            <th >Numero</th>
+          </tr>
+        </thead>
+        {% for c in centres %}
+        <tbody class="table-group-divider">
+          <tr>
+            <td class="table-active">{{c.id}}</td>
+            <td class="table-active">{{c.nomC}}</td>
+            <td class="table-active">{{c.numeroC}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+    {% else %}
+    <p>Aucun Centre a afficher</p>
+    {% endif %}
+
+    <br />
+    <br />
+
+    <a href="magasin">
+      <button class="btn btn-secondary">retourner</button>
+    </a>
+  </body>
+</html>

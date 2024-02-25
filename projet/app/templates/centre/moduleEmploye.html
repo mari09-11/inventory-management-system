@@ -1,0 +1,90 @@
+{% load static %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+h1 {
+    margin-bottom: 20px;
+}
+form {
+    margin-bottom: 20px;
+}
+label {
+    margin-right: 10px;
+}
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+</style>
+<h1>Liste des Employés du Centre {{centre_id}}</h1>
+
+{% if employes %}
+<table border="1px" class="table table-dark table-hover table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Adresse</th>
+      <th>Téléphone</th>
+      <th>Salaire journalier</th>
+      <th>Absence</th>
+      <th>Demande d'avance Salaire</th>
+      <th>Points</th>
+      <th></th>
+    </tr>
+  </thead>
+  {% for e in employes %}
+  <tbody class="table-group-divider">
+    <tr>
+      <td class="table-active">{{e.id}}</td>
+      <td class="table-active">{{e.nomE}}</td>
+      <td class="table-active">{{e.prenomE}}</td>
+      <td class="table-active">{{e.adresseE}}</td>
+      <td class="table-active">{{e.telephoneE}}</td>
+      <td class="table-active">{{e.salaire_jour}}</td>
+      <td class="table-active">
+        <a href="{% url 'absence' e.id %}">Voir Details</a>
+      </td>
+      <td class="table-active">
+        <a href="{% url 'avanceSalaire' e.id %}">Voir Details</a>
+      </td>
+      <td class="table-active">{{e.points}}</td>
+      <td class="table-active">
+        <a href="{% url 'editPts' e.id %}">Modifier Points</a>
+      </td>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+{% else %}
+<p>Aucun Employé dans ce Centre</p>
+{% endif %}
+
+<br />
+
+<a href="{% url 'section_centre' centre_id=centre_id %}">
+  <button class="btn btn-secondary">retourner</button>
+</a>

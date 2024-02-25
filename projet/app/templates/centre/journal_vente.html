@@ -1,0 +1,114 @@
+{% load static %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+h1 {
+    margin-bottom: 20px;
+}
+form {
+    margin-bottom: 20px;
+}
+label {
+    margin-right: 10px;
+}
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+</style>
+
+<h1>Liste des Ventes du Centre {{centre_id}}</h1>
+
+<form method="GET">
+  <label for="search">Entrez le nom du Produit:</label>
+  <input type="text" name="recherche" id="search" />
+  <button type="submit" class="btn btn-info">rechercher</button>
+</form>
+<br />
+
+<form method="GET">
+  <label for="search2">Entrez le nom du Client:</label>
+  <input type="text" name="clientName" id="search2" />
+  <button type="submit" class="btn btn-info">rechercher</button>
+</form>
+<br />
+
+<form method="GET">
+  <label for="search3">Entrez Date Min:</label>
+  <input type="date" name="dateMin" id="search3" />
+  <label for="search4">Entrez Date Max:</label>
+  <input type="date" name="dateMax" id="search4" />
+  <button type="submit" class="btn btn-info">rechercher</button>
+</form>
+<br />
+
+
+{% if ventes %}
+<table border="1px" class="table table-dark table-hover table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Date</th>
+      <th>Nom Client</th>
+      <th>Prénom Client</th>
+      <th>Produit</th>
+      <th>Quantité</th>
+      <th>Prix unitaire</th>
+      <th>Montant Total</th>
+      <th>Montant versé</th>
+    </tr>
+  </thead>
+  {% for v in ventes %}
+  <tbody class="table-group-divider">
+    <tr>
+      <td class="table-active">{{v.id}}</td>
+      <td class="table-active">{{v.dateVente}}</td>
+      <td class="table-active">{{v.client.nomCl}}</td>
+      <td class="table-active">{{v.client.prenomCl}}</td>
+      <td class="table-active">{{v.produitVendu}}</td>
+      <td class="table-active">{{v.qteVendu}}</td>
+      <td class="table-active">{{v.prixVente}}</td>
+      <td class="table-active">{{v.montantTotal}}</td>
+      <td class="table-active">{{v.montantVerse}}</td>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+<p>Montant Totale des Ventes ={{somme_ventes}}</p>
+<p>Bénéfice ={{benefice}}</p>
+{% else %}
+<p>Aucune Vente dans ce Centre</p>
+{% endif %}
+
+<br />
+<a href="{% url 'addVente' centre_id=centre_id %}">
+  <button class="btn btn-warning">Enregistrer une Vente</button>
+</a>
+<br />
+<br />
+
+<a href="{% url 'activites_centre' centre_id=centre_id %}">
+  <button class="btn btn-secondary">retourner</button>
+</a>

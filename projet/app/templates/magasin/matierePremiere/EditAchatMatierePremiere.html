@@ -1,0 +1,17 @@
+<h3>Modifier Achat Matière Premières</h3>
+<form method="POST">
+  {% csrf_token %} {{ form.as_p}}
+  <a href=" {% url 'liste_AchatmatierePremieres' %}" id="annuler">
+    <button>Annuler</button>
+  </a>
+  <input type="submit" value="Modifier" />
+</form>
+{{form.media}}
+<script>
+  document
+    .getElementById("annuler")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href ="{% url 'liste_AchatmatierePremieres' %}";
+    });
+</script>

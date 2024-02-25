@@ -1,0 +1,13 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+
+<form method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" class="btn btn-success" value="Ajouter" />
+</form>
+<p>{{message_montant}}</p>
+<p>{{message}}</p>
+
+<a href="{% url 'journal_vente' centre_id=centre_id%}">
+  <button class="btn btn-outline-warning btn-dark">Liste Ventes</button>
+</a>

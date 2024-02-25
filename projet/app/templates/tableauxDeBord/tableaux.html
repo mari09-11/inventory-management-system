@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+          padding: 0;
+      }
+      h1 {
+          margin-bottom: 20px;
+      }
+      form {
+          margin-bottom: 20px;
+      }
+      label {
+          margin-right: 10px;
+      }
+      button {
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+      }
+      button:hover {
+          background-color: #0056b3;
+      }
+      canvas {
+          margin-bottom: 20px;
+      }
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+      }
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+      th {
+          background-color: #f2f2f2;
+      }
+</style>
+    <title>Analyse Des Ventes</title>
+  </head>
+  <body>
+    {% if centre_id == 0 %}
+    <h1>Analyse Des Ventes De Tous Les Centres</h1>
+    {% else %}
+    <h1>Analyse Des Ventes Du Centre {{ centre_id }}</h1>
+    {% endif %}
+
+    <form method="GET">
+      <label for="search1">Entrez l'Année Min:</label>
+      <input type="number" step="1" name="anneeMin" id="search1" />
+      <label for="search2">Entrez l'Année Max:</label>
+      <input type="number" step="1" name="anneeMax" id="search2" />
+      <button type="submit" class="btn btn-info">Rechercher</button>
+    </form>
+    <br />
+
+    {% if annees %} 
+      <h2>Année 
+      {% for a in annees %}
+        {{a}}
+        {% if not forloop.last %},{% endif %}
+      {% endfor %} :
+      </h2>
+    {% endif %}
+    <p>Taux d'évolution Des Ventes = {{taux_ventes}}%</p>
+    <p>Taux d'évolution Des Bénéfice = {{taux_benefice}}%</p>
+    <h2>Produits Best-Sellers</h2>
+    {% if produits %}
+    <table border="1px" class="table table-dark table-hover table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nom</th>
+          <th>Quantité Vendu</th>
+        </tr>
+      </thead>
+      {% for p in produits %}
+      <tbody class="table-group-divider">
+        <tr>
+          <td class="table-active">{{forloop.counter}}</td>
+          <td class="table-active">{{p.nomP}}</td>
+          <td class="table-active">{{p.qte_sold}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>Aucun Produit a afficher</p>
+    {% endif %}
+
+    <h2>Top Clients</h2>
+    {% if clients %}
+    <table border="1px" class="table table-dark table-hover table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Totale Des Achats</th>
+        </tr>
+      </thead>
+      {% for cl in clients %}
+      <tbody class="table-group-divider">
+        <tr>
+          <td class="table-active">{{forloop.counter}}</td>
+          <td class="table-active">{{cl.nomCl}}</td>
+          <td class="table-active">{{cl.prenomCl}}</td>
+          <td class="table-active">{{cl.total_sale}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>Aucun Client a afficher</p>
+    {% endif %}
+
+    <br />
+    <a href="/analyseVente">
+      <button class="btn btn-secondary">Retourner</button>
+    </a>
+  
+  </body>
+</html>

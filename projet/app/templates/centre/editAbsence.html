@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<form method="POST">
+  {% csrf_token %}
+  <label for="points">Date Absence</label>
+  <input
+    type="date"
+    name="dateAbsence"
+    id="dateAbsence"
+    value="{{dateAbsence}}"
+  />
+  <br />
+  <a href=" {% url 'absence' pk=absence.employe.id %}" id="annuler">
+    <button class="btn btn-secondary">Annuler</button>
+  </a>
+  <input type="submit" class="btn btn-primary" value="Modifier" />
+</form>
+
+<script>
+  document
+    .getElementById("annuler")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href = "{% url 'absence' pk=absence.employe.id %}";
+    });
+</script>

@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+<h3>Modifier Client</h3>
+<form method="POST">
+  {% csrf_token %} {{ form.as_p}}
+  <a href=" {% url 'liste_clients' %}" id="annuler">
+    <button class="btn btn-secondary">Annuler</button>
+  </a>
+  <input type="submit" class="btn btn-primary" value="Modifier" />
+</form>
+
+<script>
+  //on utilise JS pour intercepter le clic sur le lien Annuler pour annuler l'envoi d'un formulaire
+  document
+    .getElementById("annuler")
+    .addEventListener("click", function (event) {
+      event.preventDefault(); // Empêche l'action par défaut du lien
+      window.location.href = "{% url 'liste_clients' %}";
+    });
+</script>

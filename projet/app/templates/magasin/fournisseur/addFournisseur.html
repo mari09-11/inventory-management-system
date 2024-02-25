@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+<form method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" class="btn btn-success" value="Ajouter" />
+</form>
+<p>{{message}}</p>
+
+<a href="{% url 'liste_fournisseurs' %}">
+  <button class="btn btn-outline-warning btn-dark">Liste Fournisseur</button>
+</a>

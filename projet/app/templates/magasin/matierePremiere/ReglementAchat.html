@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {{ form.media.css }}
+        <style>
+        .form-sp { 
+            margin-bottom : 8px;
+        } 
+        select {width: 10% } 
+        <style>
+          select {width: 10% }
+           body {
+               font-family: Arial, sans-serif;
+               margin: 20px;
+               padding: 0;
+           }
+           h1 {
+               margin-bottom: 20px;
+           }
+           form {
+               margin-bottom: 20px;
+           }
+           label {
+               margin-right: 10px;
+           }
+           button {
+               margin : 5px;
+               padding: 5px 10px;
+               background-color: #007bff;
+               color: #fff;
+               border: none;
+               cursor: pointer;
+           }
+           button:hover {
+               background-color: #0056b3;
+           }
+           input[type="submit"] {
+           margin: 5px;
+           padding: 5px 10px;
+           background-color: #007bff;
+           color: #fff;
+           border: none;
+           cursor: pointer;
+           }
+       </style>
+        </style>
+        <title>Reglement Fournisseur</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+    <h3>Regler Fournisseur:</h3>
+    <div>
+      <form method="POST">
+        {% csrf_token %} {{ form.as_p}}
+        <script>
+          $(document).ready(function () {
+              // Add an event listener to the Fournisseur dropdown
+              $('.fournisseur-dropdown').change(function () {
+                  var fournisseurId = $(this).val();
+
+                  // Fetch solde via AJAX or directly from the rendered data
+
+                  $.ajax({
+                      url: '/get_solde/',  // Replace with your actual URL to fetch solde
+                      method: 'GET',
+                      data: { 'fournisseur_id': fournisseurId },
+                      success: function (data) {
+                          // Update the "solde" field
+                          $('#id_solde').val(data.solde);
+                      }
+                  });
+              });
+          });
+      </script>
+        <input type="submit" value="Confirmer Reglement" />
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    {{ form.media.js }}
+    <p>{{message}}</p>
+
+    <a href="{% url 'liste_AchatmatierePremieres' %}">
+      <button>Journal achat Matière Premières</button>
+    </a> 
+  
+</body>
+</html> 

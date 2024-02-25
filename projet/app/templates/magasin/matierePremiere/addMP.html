@@ -1,0 +1,47 @@
+<style>
+  select {width: 10% }
+   body {
+       font-family: Arial, sans-serif;
+       margin: 20px;
+       padding: 0;
+   }
+   h1 {
+       margin-bottom: 20px;
+   }
+   form {
+       margin-bottom: 20px;
+   }
+   label {
+       margin-right: 10px;
+   }
+   button {
+       margin : 5px;
+       padding: 5px 10px;
+       background-color: #007bff;
+       color: #fff;
+       border: none;
+       cursor: pointer;
+   }
+   button:hover {
+       background-color: #0056b3;
+   }
+   input[type="submit"] {
+   margin: 5px;
+   padding: 5px 10px;
+   background-color: #007bff;
+   color: #fff;
+   border: none;
+   cursor: pointer;
+   }
+</style>
+<h3> Ajout Matiere Premiere</h3>
+<form method="POST">
+    {% csrf_token %} {{form.as_p}}
+    <input type="submit" value="Ajouter" />
+  </form>
+  <p>{{message}}</p>
+  
+  <a href="{% url 'liste_matierePremieres' %}">
+    <button>Liste matiere Premieres</button>
+  </a>
+  

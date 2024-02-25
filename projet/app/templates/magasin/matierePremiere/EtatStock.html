@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etat De Stock</title>
+    <style>
+      .table-bordered {
+          max-height: 50px; 
+          overflow-y: auto; 
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+    button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+  </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    
+    <script>
+        function generatePDF() {
+            const pdfOptions = {
+                margin: 10,
+                filename: 'etat_de_stock.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 1 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+
+            // Include the entire content of the pdfContainer div
+            const pdfContainer = document.getElementById('pdfContainer');
+            html2pdf(pdfContainer, pdfOptions);
+        }
+    </script>
+</head>
+<body>
+    <h1>Etat de stock</h1>
+    
+    <form method="GET" action="{% url 'EtatStock' %}" class="form-inline">
+      <div class="form-group">
+          <label for="matierepremier">Entrez le nom de la matière première:</label>
+          <input type="text" name="matierepremier" id="filter-matierepremier" class="form-control" />
+      </div> 
+      <div class="form-group">
+          <label for="typeTransaction">Entrez Type Transaction:</label>
+          <input type="text" name="typeTransaction" id="filter-typeTransaction" class="form-control" />
+      </div> 
+      <div class="form-group">
+          <label for="prix">Entrez Prix</label>
+          <input type="text" name="prix" id="filter-prix " class="form-control" />
+      </div> 
+      <div class="form-group">
+          <label for="QteTransaction">Entrez la Quantité:</label>
+          <input type="text" name="QteTransaction " id="filter-QteTransaction " class="form-control" />
+      </div>
+      <div class="form-group">
+          <label for="montantTransaction">Entrez montant Transaction:</label>
+          <input type="text" name="montantTransaction" id="filter-montantTransaction" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-outline-info">Filter</button>
+  </form>
+    <br />
+<div id="pdfContainer">
+    {% if EtatStock %}
+    <table border="1px"  class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Matiere Premiere</th>
+          <th>TypeTransaction</th>
+          <th>Prix</th>
+          <th>Quantite</th>
+          <th>montantTransaction</th>
+        </tr>
+      </thead>
+      {% for ES in EtatStock %}
+      <tbody>
+        <tr>
+          <td>{{ES.matierepremier}}</td>
+          <td>{{ES.typeTransaction}}</td>
+          <td>{{ES.prix}}</td>
+          <td>{{ES.QteTransaction }}</td>
+          <td>{{ES.montantTransaction}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </br>
+</br>
+    <table border="1px"   class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Total achat</th>
+          <th>Quantite achat</th>
+          <th>Total vente </th>
+          <th>Quantite vente</th>
+          <th>Total transfert</th>
+          <th>Quantite transfert</th>
+          <th>Total Montant Stock</th>
+          <th>Quantite Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{total_achat}}</td>
+          <td>{{quantite_achat}}</td>
+          <td>{{total_vente}}</td>
+          <td>{{quantite_vente}}</td>
+          <td>{{total_transfert}}</td>
+          <td>{{quantite_transfert}}</td>
+          <td>{{total_stock}}</td>
+          <td>{{QteStock}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button onclick="generatePDF()" class="btn btn-outline-info">Generate PDF</button>
+    {% else %}
+    <p>Pas de stock à afficher</p>
+    {% endif %}  
+</div>  
+    <br />    
+    <a href="magasin">
+        <button>retourner</button>
+    </a>
+</body>
+</html>
